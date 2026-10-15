@@ -24,6 +24,7 @@ let category='Todos', view='catalog', picks={};
 try{picks=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch{picks={}}
 function productGroup(p){const n=p.name.toLocaleUpperCase('es');if(p.category==='Limpieza'||/(FREGASUELO|LIMPIADOR|CELU |CELU$|FAIRY CAPS|ANABEL LIQ|INSECT|TRAMPA HORMIGAS|JABON TRADICIONAL|OXI|DESOD AMB|AMBIENTADOR|LEJIA|BOLSA BASURA|PAPEL HIGIENICO|ROLLO COCINA|LAVAVAJILLAS|SUAVIZANTE|DETERGENTE|MPL PT)/.test(n))return 'Limpieza';if(/CERVEZA/.test(n))return 'Cervezas';if(/^(RFCO|AGUA |AGUA$|AGUA\b)|\b(JUVER|NESTEA|FUZE TEA|RED BULL|AQUARIUS|R BLISS|FANTA|COCA-COLA|COCA COLA|7UP|PEPSI|SPRITE|SCHWEPPES|TONICA|TÓNICA)\b/.test(n))return 'Refrescos';return ''}
 const byId=new Map(CATALOG.filter(p=>productGroup(p)).map(p=>[p.id,p]));
+let removedOldItems=false;for(const id of Object.keys(picks)){if(!byId.has(id)){delete picks[id];removedOldItems=true}}if(removedOldItems){try{localStorage.setItem(KEY,JSON.stringify(picks))}catch{}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(picks))}catch{}}
 function basketCount(){return Object.values(picks).reduce((a,n)=>a+Math.max(0,Number(n)||0),0)}
 function total(){return Object.entries(picks).reduce((a,[id,q])=>a+(byId.get(id)?.gross||0)*Math.max(0,Number(q)||0),0)}
