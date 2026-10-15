@@ -1,4 +1,4 @@
-const CACHE = "bola8-compras-v3";
+const CACHE = "bola8-compras-v4";
 const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icon.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
