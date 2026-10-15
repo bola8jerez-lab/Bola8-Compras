@@ -36,5 +36,15 @@ async function exportData(json){let d={products:await all('products'),suppliers:
 document.addEventListener('click',async e=>{let b=e.target.closest('[data-page],[data-act]');if(!b)return;if(b.dataset.page){page=b.dataset.page;search='';render();return}let a=b.dataset.act,id=b.dataset.id,pid=b.dataset.purchase;try{switch(a){case'dismiss':$('#overlay')?.remove();break;case'newproduct':productForm();break;case'editproduct':productForm(id);break;case'newsupplier':supplierForm();break;case'editsupplier':supplierForm(id);break;case'newpurchase':newPurchase();break;case'openpurchase':{let p=await active();if(p)purchaseView(p.id);break}case'closepurchase':{let p=await active();if(p)finishPurchase(p.id);break}case'addline':lineForm(id);break;case'editline':lineForm(pid,id);break;case'finishpurchase':finishPurchase(id);break;case'viewpurchase':purchaseView(id);break;case'exportcsv':exportData(false);break;case'backup':exportData(true);break;case'importinvoice':$('#invoicefile').click();break}}catch(err){console.error(err);toast('No se pudo completar la acción. Inténtalo de nuevo.')}});
 document.addEventListener('input',e=>{if(e.target.id==='search'){search=e.target.value;let p=e.target.selectionStart;render().then(()=>{let n=$('#search');if(n){n.focus();n.setSelectionRange(p,p)}})}});
 $('#invoicefile').onchange=e=>{let f=e.target.files?.[0];if(f){modal('Importación de factura','<p><b>'+esc(f.name)+'</b></p><p class="notice warn">La lectura automática de PDF y fotografías aún no está implementada. El archivo no se almacena ni se procesa.</p><button class="primary" style="width:100%;margin-top:14px" data-act="dismiss">Entendido</button>')}e.target.value=''};
-window.addEventListener('offline',()=>toast('Sin conexión: los cambios están desactivados'));if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});gate();
+window.addEventListener('offline',()=>toast('Sin conexión: los cambios están desactivados'));if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});async function initApp(){
+  const suppliers = await all('suppliers');
+  if (!suppliers.some(s => String(s.name || '').trim().toLocaleLowerCase('es') === 'cash dian')) {
+    await put('suppliers', {id: uid(), name: 'Cash Dian', taxId: '', address: '', active: true});
+  }
+  await gate();
+}
+initApp().catch(err => {
+  console.error(err);
+  $('#app').innerHTML = '<section class="card"><h1>No se ha podido iniciar</h1><p>Ha ocurrido un error al abrir la base de datos local. Cierra y vuelve a abrir la aplicación.</p></section>';
+});
 </script></body></html>
