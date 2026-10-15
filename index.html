@@ -6,11 +6,11 @@
 </style></head><body>
 <main class="app">
 <header class="top"><div><div class="brand"><b>●</b> Bola 8 <span style="font-weight:500">Compras</span></div><div class="sub">Lista semanal · Jerez</div></div><button id="shareTop" aria-label="Compartir lista">↗ Compartir</button></header>
-<section class="hero"><div class="eyebrow">COMPRA DE LA SEMANA</div><h1>¿Qué hace falta?</h1><p>Busca un producto, indica la cantidad y añádelo a tu lista. El precio se calcula con la última factura disponible.</p></section>
+<section class="hero"><div class="eyebrow">COMPRA DE LA SEMANA</div><h1>¿Qué hace falta?</h1><p>Añade refrescos, cervezas y productos de limpieza a la compra semanal. Los precios se calculan con las facturas disponibles.</p></section>
 <div class="tab"><button id="catalogTab" class="active">＋ Catálogo</button><button id="listTab">☷ Mi lista <span id="listCount">0</span></button></div>
 <section id="catalogView"><input id="search" class="search" type="search" placeholder="Buscar producto…" autocomplete="off"><div class="chips" id="chips"></div><div class="sectionhead"><h2 id="sectionTitle">Todos los productos</h2><span class="count" id="resultCount"></span></div><div class="grid" id="products"></div></section>
 <section id="listView" class="hide"><div class="sectionhead"><h2>Compra semanal</h2><span class="count" id="listCount2">0 productos</span></div><div id="basket"></div><div id="basketActions" class="toolbar hide"><button id="shareBtn">Compartir / enviar</button><button id="clearBtn">Empezar otra semana</button></div></section>
-<div class="note" style="margin-top:20px">Precios extraídos de facturas de Cash Dian. Son orientativos y pueden variar. Cuando la factura no tiene fecha legible, se indica como fecha no disponible.</div>
+<div class="note" style="margin-top:20px">Solo se muestran refrescos, cervezas y productos de limpieza. Precios extraídos de facturas de Cash Dian; son orientativos y pueden variar. Cuando la factura no tiene fecha legible, se indica como fecha no disponible.</div>
 </main>
 <div class="bottom"><div class="bottominner"><div class="bottomtotal"><span>Estimación de la lista · IVA incluido</span><strong id="grandTotal">0,00 €</strong></div><button id="viewListBtn" class="primary">Ver mi lista →</button></div></div>
 <script>
@@ -19,10 +19,11 @@ const CATALOG=[{"id":"27673","name":"AGUA FUENTE PRIMAVERA S/G 0,5L","code":"276
 const KEY='bola8-weekly-shopping-v1';
 const fmt=n=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(Number(n)||0);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const cats=['Todos','Bebidas','Alimentación','Limpieza','Otros'];
+const cats=['Todos','Refrescos','Cervezas','Limpieza'];
 let category='Todos', view='catalog', picks={};
 try{picks=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch{picks={}}
-const byId=new Map(CATALOG.map(p=>[p.id,p]));
+function productGroup(p){const n=p.name.toLocaleUpperCase('es');if(p.category==='Limpieza'||/(FREGASUELO|LIMPIADOR|CELU |CELU$|FAIRY CAPS|ANABEL LIQ|INSECT|TRAMPA HORMIGAS|JABON TRADICIONAL|OXI|DESOD AMB|AMBIENTADOR|LEJIA|BOLSA BASURA|PAPEL HIGIENICO|ROLLO COCINA|LAVAVAJILLAS|SUAVIZANTE|DETERGENTE|MPL PT)/.test(n))return 'Limpieza';if(/CERVEZA/.test(n))return 'Cervezas';if(/^(RFCO|AGUA |AGUA$|AGUA\b)|\b(JUVER|NESTEA|FUZE TEA|RED BULL|AQUARIUS|R BLISS|FANTA|COCA-COLA|COCA COLA|7UP|PEPSI|SPRITE|SCHWEPPES|TONICA|TÓNICA)\b/.test(n))return 'Refrescos';return ''}
+const byId=new Map(CATALOG.filter(p=>productGroup(p)).map(p=>[p.id,p]));
 function save(){try{localStorage.setItem(KEY,JSON.stringify(picks))}catch{}}
 function basketCount(){return Object.values(picks).reduce((a,n)=>a+Math.max(0,Number(n)||0),0)}
 function total(){return Object.entries(picks).reduce((a,[id,q])=>a+(byId.get(id)?.gross||0)*Math.max(0,Number(q)||0),0)}
@@ -31,10 +32,10 @@ function priceDate(p){return p.date?'Factura del '+p.date:'Fecha de factura no d
 function renderChips(){document.querySelector('#chips').innerHTML=cats.map(c=>'<button class="'+(c===category?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('')}
 function renderProducts(){
  const q=document.querySelector('#search').value.trim().toLocaleLowerCase('es');
- const list=CATALOG.filter(p=>(category==='Todos'||p.category===category)&&(!q||(p.name+' '+p.code+' '+p.ean).toLocaleLowerCase('es').includes(q))).sort((a,b)=>a.name.localeCompare(b.name,'es'));
- document.querySelector('#sectionTitle').textContent=category==='Todos'?'Todos los productos':category;
+ const list=CATALOG.filter(p=>{const g=productGroup(p);return (category==='Todos'||g===category)&&g&&(!q||(p.name+' '+p.code+' '+p.ean).toLocaleLowerCase('es').includes(q))}).sort((a,b)=>a.name.localeCompare(b.name,'es'));
+ document.querySelector('#sectionTitle').textContent=category==='Todos'?'Refrescos, cervezas y limpieza':category;
  document.querySelector('#resultCount').textContent=list.length+' artículos';
- document.querySelector('#products').innerHTML=list.map(p=>'<article class="product"><div class="catlabel">'+esc(p.category)+'</div><div class="pname">'+esc(p.name)+'</div><div class="price">'+showPrice(p)+'<small> / ud.</small></div><div class="price2">'+(p.net==null?'Sin precio sin IVA':fmt(p.net)+' sin IVA')+'</div><div class="date">'+esc(priceDate(p))+'</div><div class="pactions"><div class="step"><button data-step="-1" data-id="'+p.id+'" aria-label="Restar">−</button><input class="qty" id="qty-'+p.id+'" type="number" min="1" step="1" value="1" aria-label="Cantidad"><button data-step="1" data-id="'+p.id+'" aria-label="Sumar">+</button></div><button class="add" data-add="'+p.id+'">Añadir</button></div></article>').join('')||'<div class="empty" style="grid-column:1/-1">No hay productos con esa búsqueda.</div>';
+ document.querySelector('#products').innerHTML=list.map(p=>'<article class="product"><div class="catlabel">'+esc(productGroup(p))+'</div><div class="pname">'+esc(p.name)+'</div><div class="price">'+showPrice(p)+'<small> / ud.</small></div><div class="price2">'+(p.net==null?'Sin precio sin IVA':fmt(p.net)+' sin IVA')+'</div><div class="date">'+esc(priceDate(p))+'</div><div class="pactions"><div class="step"><button data-step="-1" data-id="'+p.id+'" aria-label="Restar">−</button><input class="qty" id="qty-'+p.id+'" type="number" min="1" step="1" value="1" aria-label="Cantidad"><button data-step="1" data-id="'+p.id+'" aria-label="Sumar">+</button></div><button class="add" data-add="'+p.id+'">Añadir</button></div></article>').join('')||'<div class="empty" style="grid-column:1/-1">No hay productos con esa búsqueda.</div>';
 }
 function renderBasket(){
  const entries=Object.entries(picks).filter(([id,q])=>byId.has(id)&&Number(q)>0).sort((a,b)=>byId.get(a[0]).name.localeCompare(byId.get(b[0]).name,'es'));
