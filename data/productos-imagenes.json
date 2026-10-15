@@ -1,0 +1,433 @@
+{
+  "version": 1,
+  "notice": "Rellena image con una ruta local validada por producto; no asociar imágenes sin comprobar EAN y envase.",
+  "products": [
+    {
+      "ean": "8429359000004",
+      "id": "27673",
+      "name": "AGUA FUENTE PRIMAVERA S/G 0,5L",
+      "category": "aguas",
+      "image": ""
+    },
+    {
+      "ean": "8410494303372",
+      "id": "11532",
+      "name": "RFCO 7UP LT 330",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8411092731130",
+      "id": "91772",
+      "name": "RFCO NESTEA LT 330 MARACUYA",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8410707008650",
+      "id": "30845",
+      "name": "DISFRUTA JUVER BK 2L NARANJA",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8413681021820",
+      "id": "93053",
+      "name": "CERVEZA ALHAMBRA 1925 1/3 PK6 6,4G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "8411327013376",
+      "id": "102020",
+      "name": "CERVEZA CORONA 1/3 4,5G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "3155932014995",
+      "id": "83447",
+      "name": "CERVEZA DESPERADO BTLL 33 PK6 5,9G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "5000277001200",
+      "id": "59230",
+      "name": "WHISKY W LABEL 1L 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8001110016303",
+      "id": "84381",
+      "name": "LICOR AMARETTO DISARONNO 0,70 28G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "5900685007910",
+      "id": "49943",
+      "name": "GINEBRA SEAGRAM'S 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "7312040097708",
+      "id": "26254",
+      "name": "VODKA ABSOLUT 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8411322236695",
+      "id": "84716",
+      "name": "GEL FIJA NELLY 50 EXT FUERTE VIAJE",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "5449000000996",
+      "id": "11548",
+      "name": "RFCO COCA-COLA LT 330",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "5449000131805",
+      "id": "54641",
+      "name": "RFCO COCA-COLA ZERO LT 330",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "5449000011527",
+      "id": "11549",
+      "name": "RFCO FANTA LATA 330 NARANJA",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "5449000329929",
+      "id": "99809",
+      "name": "RFCO FUZE TEA LT 330 MARACUYA",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "9002490100070",
+      "id": "25051",
+      "name": "RFCO RED BULL LT 250",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8412598004025",
+      "id": "90286",
+      "name": "CERVEZA E GALICIA 20CL PK6 5,5G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "8412598004964",
+      "id": "91579",
+      "name": "CERVEZA E GALICIA 1906 BT 33CL 6,5G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "5000267014234",
+      "id": "17072",
+      "name": "WHISKY J.WALKER RED 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8437014826395",
+      "id": "98816",
+      "name": "FREGASUELO TAIFOL 1,5L CEREZO",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8429359275006",
+      "id": "20873",
+      "name": "AGUA FONT NATURA S/G 5L",
+      "category": "aguas",
+      "image": ""
+    },
+    {
+      "ean": "5449000006004",
+      "id": "11550",
+      "name": "RFCO FANTA LATA 330 LIMON",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8411640011073",
+      "id": "5401",
+      "name": "RON BARCELO AÑEJO 0,70 37,5G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8436614561705",
+      "id": "101591",
+      "name": "LIMPIADOR MPL PT 1L DUCHA/MAMPARA",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "5601028004961",
+      "id": "69120",
+      "name": "CELU HIGI RECIC RENOVA 2C 120M PK12",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "5000299606292",
+      "id": "19136",
+      "name": "WHISKY BALLANTINES 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8410695023857",
+      "id": "16785",
+      "name": "WHISKY J.B. 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "5000329002193",
+      "id": "16718",
+      "name": "GINEBRA BEEFEATER 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8431270102224",
+      "id": "91119",
+      "name": "GINEBRA RIVES 0,70 EXOTICA 37,5G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8410283381710",
+      "id": "73522",
+      "name": "TINTO VER CASERA LT 330 LIMON",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "5601028016032",
+      "id": "95758",
+      "name": "CELU MULTIUSOS RENOVA 2C 300M 2U",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "5410091728588",
+      "id": "47250",
+      "name": "DESOD FA RL 50 LIMON CARIBE",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8410707007530",
+      "id": "44502",
+      "name": "NECTAR JUVER BOTELLIN 200 PIÑA",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8700216323185",
+      "id": "98459",
+      "name": "FAIRY CAPS 18+11D TODO EN 1",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8412598000010",
+      "id": "89310",
+      "name": "CERVEZA E GALICIA LT 330 5,5G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "8410707009732",
+      "id": "100656",
+      "name": "LIMONADA TRADICIONAL JUVER BK 1,5L",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8411582211524",
+      "id": "59229",
+      "name": "FREGASUELO ASEVI 1L MIO",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8413600774011",
+      "id": "3457",
+      "name": "MULTIUSOS GLASSEX PT 750",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8001841643229",
+      "id": "41356",
+      "name": "FAIRY PROFESIONAL 5000 NORMAL",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8410128000400",
+      "id": "48207",
+      "name": "AGUA BEZOYA S/G 1,5L",
+      "category": "aguas",
+      "image": ""
+    },
+    {
+      "ean": "8412289006819",
+      "id": "97655",
+      "name": "QUESO CURADO MEZCLA CAVA BARUS K",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8410337427029",
+      "id": "8644",
+      "name": "GINEBRA RIVES 1L 37,5G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "4066600611981",
+      "id": "61125",
+      "name": "CERVEZA PAULANER WEISSBIER 1/2 5,5G",
+      "category": "cervezas",
+      "image": ""
+    },
+    {
+      "ean": "5010504100095",
+      "id": "12648",
+      "name": "WHISKY CUTTY SARK 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8410283303552",
+      "id": "11862",
+      "name": "RFCO CASERA LATA 330 NARANJA",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8410337432023",
+      "id": "8995",
+      "name": "LICOR S/ALCOH RIVES 1L LIMA",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8437014202090",
+      "id": "20347",
+      "name": "LEJIA LAVANDERA 5L AMARILLA",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8411582211623",
+      "id": "85958",
+      "name": "FREGASUELO ASEVI 5L MIO",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "7460855232224",
+      "id": "552",
+      "name": "RON BRUGAL AÑEJO 0,70 38G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8423719720205",
+      "id": "95687",
+      "name": "TORTILLA CAMARON CASTELLAR 300G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "8429359001452",
+      "id": "78062",
+      "name": "AGUA FONT NATURA S/G 0,5L",
+      "category": "aguas",
+      "image": ""
+    },
+    {
+      "ean": "8410490271262",
+      "id": "75684",
+      "name": "RON CACIQUE AÑEJO 0,70L 37,5G",
+      "category": "alcohol",
+      "image": ""
+    },
+    {
+      "ean": "5449000325983",
+      "id": "99808",
+      "name": "RFCO FUZE TEA LT 330 LIMON",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8700216323123",
+      "id": "99690",
+      "name": "FAIRY CAPS 28+28 TODO EN 1",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8411322247141",
+      "id": "100559",
+      "name": "GEL FIJA NELLY 170 EXT FUERTE",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "5449000300843",
+      "id": "94854",
+      "name": "RFCO R BLISS LT 250 MIXERS BERRY",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "5449000058560",
+      "id": "10686",
+      "name": "RFCO AQUARIUS LT 330",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8410283381734",
+      "id": "57093",
+      "name": "TINTO VER CASERA PET 1,5L LIMON",
+      "category": "refrescos",
+      "image": ""
+    },
+    {
+      "ean": "8411322247158",
+      "id": "100560",
+      "name": "GEL FIJA NELLY 170 CONTROL TOTAL",
+      "category": "limpieza",
+      "image": ""
+    },
+    {
+      "ean": "8411144100198",
+      "id": "61545",
+      "name": "GINEBRA LARIOS 12 0,70 40G",
+      "category": "alcohol",
+      "image": ""
+    }
+  ]
+}
