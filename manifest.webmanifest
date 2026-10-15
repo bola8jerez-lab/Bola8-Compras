@@ -1,0 +1,20 @@
+{
+  "name": "Bola 8 Compras",
+  "short_name": "Bola 8",
+  "description": "Control local de compras y precios de Bola 8",
+  "lang": "es-ES",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101820",
+  "theme_color": "#101820",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
