@@ -28,6 +28,46 @@ let removedOldItems=false;for(const id of Object.keys(picks)){if(!byId.has(id)){
 function save(){try{localStorage.setItem(KEY,JSON.stringify(picks))}catch{}}
 function basketCount(){return Object.values(picks).reduce((a,n)=>a+Math.max(0,Number(n)||0),0)}
 function total(){return Object.entries(picks).reduce((a,[id,q])=>a+(byId.get(id)?.gross||0)*Math.max(0,Number(q)||0),0)}
+function displayName(p){
+ const n=p.name.toLocaleUpperCase('es');
+ const rules=[
+ [/^AGUA FUENTE PRIMAVERA S\/G 0,5L$/,'Agua Fuente Primavera 500 ml'],
+ [/^AGUA FONT NATURA S\/G 5L$/,'Agua Font Natura 5 litros'],
+ [/^RFCO 7UP LT 330$/,'7UP lata 330 ml'],
+ [/^RFCO NESTEA LT 330 MARACUYA$/,'Nestea maracuyá lata 330 ml'],
+ [/^RFCO COCA-COLA LT 330$/,'Coca-Cola original lata 330 ml'],
+ [/^RFCO COCA-COLA ZERO LT 330$/,'Coca-Cola Zero lata 330 ml'],
+ [/^RFCO FANTA LATA 330 NARANJA$/,'Fanta naranja lata 330 ml'],
+ [/^RFCO FANTA LATA 330 LIMON$/,'Fanta limón lata 330 ml'],
+ [/^RFCO FUZE TEA LT 330 MARACUYA$/,'Fuze Tea maracuyá lata 330 ml'],
+ [/^RFCO RED BULL LT 250$/,'Red Bull lata 250 ml'],
+ [/^CERVEZA ALHAMBRA 1925 1\/3 PK6 6,4G$/,'Cerveza Alhambra Reserva 1925 · pack de 6 botellas de 330 ml'],
+ [/^CERVEZA CORONA 1\/3 4,5G$/,'Cerveza Corona botella 330 ml'],
+ [/^CERVEZA DESPERADO BTLL 33 PK6 5,9G$/,'Cerveza Desperados · pack de 6 botellas de 330 ml'],
+ [/^CERVEZA E GALICIA 20CL PK6 5,5G$/,'Cerveza Estrella Galicia botella 200 ml · pack de 6'],
+ [/^CERVEZA E GALICIA 1906 BT 33CL 6,5G$/,'Cerveza 1906 botella 330 ml'],
+ [/^WHISKY W LABEL 1L 40G$/,'Whisky White Label 1 litro'],
+ [/^LICOR AMARETTO DISARONNO 0,70 28G$/,'Licor Disaronno Amaretto 700 ml'],
+ [/^GINEBRA SEAGRAM.S 0,70 40G$/,'Ginebra Seagram’s 700 ml'],
+ [/^VODKA ABSOLUT 0,70 40G$/,'Vodka Absolut 700 ml'],
+ [/^WHISKY J\.WALKER RED 0,70 40G$/,'Whisky Johnnie Walker Red Label 700 ml'],
+ [/^WHISKY BALLANTINES 0,70 40G$/,'Whisky Ballantine’s 700 ml'],
+ [/^WHISKY J\.B\. 0,70 40G$/,'Whisky J&B 700 ml'],
+ [/^GINEBRA BEEFEATER 0,70 40G$/,'Ginebra Beefeater 700 ml'],
+ [/^GINEBRA RIVES 0,70 EXOTICA 37,5G$/,'Ginebra Rives Exótica 700 ml'],
+ [/^RON BARCELO AÑEJO 0,70 37,5G$/,'Ron Barceló Añejo 700 ml'],
+ [/^DISFRUTA JUVER BK 2L NARANJA$/,'Zumo Juver Disfruta de naranja 2 litros'],
+ [/^FREGASUELO TAIFOL 1,5L CEREZO$/,'Fregasuelos Taifol aroma cerezo 1,5 litros'],
+ [/^LIMPIADOR MPL PT 1L DUCHA\/MAMPARA$/,'Limpiador de mamparas y duchas MPL 1 litro'],
+ [/^CELU HIGI RECIC RENOVA 2C 120M PK12$/,'Papel higiénico Renova reciclado · pack de 12 rollos'],
+ [/^CELU MULTIUSOS RENOVA 2C 300M 2U$/,'Papel multiusos Renova · 2 rollos de 300 metros'],
+ [/^DESOD FA RL 50 LIMON CARIBE$/,'Desodorante ambientador Caribe limón 50 ml'],
+ [/^AMB SPLASH SP 300 FRESA$/,'Ambientador Splash fresa 300 ml'],
+ [/^GEL FIJA NELLY 50 EXT FUERTE VIAJE$/,'Gel fijador Nelly extrafuerte 50 ml']
+ ];
+ for(const [re,label] of rules){if(re.test(n))return label}
+ return p.name.replace(/\bRFCO\b/gi,'').replace(/\bLT\b/gi,'lata').replace(/\bBTLL\b/gi,'botella').replace(/\bPK(\d+)\b/gi,'pack de $1').replace(/\bS\/G\b/gi,'sin gas').replace(/\b0,70\b/g,'700 ml').replace(/\b1L\b/gi,'1 litro').replace(/\b0,5L\b/gi,'500 ml').replace(/\b330CL\b/gi,'330 ml').replace(/\s+/g,' ').trim();
+}
 function showPrice(p){return p.gross==null?'Precio pendiente':fmt(p.gross)}
 function priceDate(p){return p.date?'Factura del '+p.date:'Fecha de factura no disponible'}
 function renderChips(){document.querySelector('#chips').innerHTML=cats.map(c=>'<button class="'+(c===category?'active':'')+'" data-cat="'+c+'">'+c+'</button>').join('')}
@@ -36,7 +76,7 @@ function renderProducts(){
  const list=CATALOG.filter(p=>{const g=productGroup(p);return (category==='Todos'||g===category)&&g&&(!q||(p.name+' '+p.code+' '+p.ean).toLocaleLowerCase('es').includes(q))}).sort((a,b)=>a.name.localeCompare(b.name,'es'));
  document.querySelector('#sectionTitle').textContent=category==='Todos'?'Refrescos, cervezas y limpieza':category;
  document.querySelector('#resultCount').textContent=list.length+' artículos';
- document.querySelector('#products').innerHTML=list.map(p=>'<button type="button" class="product-card" data-open-product="'+p.id+'"><div class="product-photo">'+brandLogo(p)+'</div><div class="catlabel">'+esc(productGroup(p))+'</div><div class="pname">'+esc(p.name)+'</div><div class="tap-hint">Toca para indicar cantidad</div></button>').join('')||'<div class="empty" style="grid-column:1/-1">No hay productos con esa búsqueda.</div>';
+ document.querySelector('#products').innerHTML=list.map(p=>'<button type="button" class="product-card" data-open-product="'+p.id+'"><div class="product-photo">'+brandLogo(p)+'</div><div class="catlabel">'+esc(productGroup(p))+'</div><div class="pname">'+esc(displayName(p))+'</div><div class="tap-hint">Toca para indicar cantidad</div></button>').join('')||'<div class="empty" style="grid-column:1/-1">No hay productos con esa búsqueda.</div>';
 }
 
 function brandLogo(p){
@@ -96,14 +136,14 @@ function renderBasket(){
  document.querySelector('#listCount2').textContent=entries.length+' productos';
  document.querySelector('#grandTotal').textContent=fmt(total());
  document.querySelector('#basketActions').classList.toggle('hide',!entries.length);
- document.querySelector('#basket').innerHTML=entries.length?entries.map(([id,q])=>{const p=byId.get(id);return '<div class="listitem"><div class="listmain"><div class="listname">'+esc(p.name)+'</div><div class="muted">'+showPrice(p)+' × '+q+' · '+esc(p.category)+'</div></div><div class="step"><button data-bstep="-1" data-id="'+id+'">−</button><strong>'+q+'</strong><button data-bstep="1" data-id="'+id+'">+</button></div><div class="lineprice">'+(p.gross==null?'—':fmt(p.gross*q))+'</div><button class="remove" data-remove="'+id+'" aria-label="Quitar">✕</button></div>'}).join(''):'<div class="empty"><div style="font-size:30px;margin-bottom:8px">☷</div><b>Tu lista está vacía</b><p>Añade productos desde el catálogo para empezar la compra de esta semana.</p><button class="primary" id="emptyGo">Ver catálogo</button></div>';
+ document.querySelector('#basket').innerHTML=entries.length?entries.map(([id,q])=>{const p=byId.get(id);return '<div class="listitem"><div class="listmain"><div class="listname">'+esc(displayName(p))+'</div><div class="muted">'+showPrice(p)+' × '+q+' · '+esc(p.category)+'</div></div><div class="step"><button data-bstep="-1" data-id="'+id+'">−</button><strong>'+q+'</strong><button data-bstep="1" data-id="'+id+'">+</button></div><div class="lineprice">'+(p.gross==null?'—':fmt(p.gross*q))+'</div><button class="remove" data-remove="'+id+'" aria-label="Quitar">✕</button></div>'}).join(''):'<div class="empty"><div style="font-size:30px;margin-bottom:8px">☷</div><b>Tu lista está vacía</b><p>Añade productos desde el catálogo para empezar la compra de esta semana.</p><button class="primary" id="emptyGo">Ver catálogo</button></div>';
 }
 function setView(v){view=v;document.querySelector('#catalogView').classList.toggle('hide',v!=='catalog');document.querySelector('#listView').classList.toggle('hide',v!=='list');document.querySelector('#catalogTab').classList.toggle('active',v==='catalog');document.querySelector('#listTab').classList.toggle('active',v==='list');if(v==='list')renderBasket();window.scrollTo({top:0,behavior:'smooth'})}
 function update(){save();renderBasket()}
 function shareList(){
  const entries=Object.entries(picks).filter(([id,q])=>byId.has(id)&&Number(q)>0).sort((a,b)=>byId.get(a[0]).name.localeCompare(byId.get(b[0]).name,'es'));
  if(!entries.length){alert('Añade algún producto antes de compartir la lista.');return}
- const lines=['BOLA 8 · COMPRA SEMANAL','',...entries.map(([id,q])=>{const p=byId.get(id);return q+' × '+p.name+' — '+(p.gross==null?'precio pendiente':fmt(p.gross*q))}),'', 'TOTAL ESTIMADO: '+fmt(total()),'Precios orientativos según las facturas disponibles de Cash Dian.'];
+ const lines=['BOLA 8 · COMPRA SEMANAL','',...entries.map(([id,q])=>{const p=byId.get(id);return q+' × '+displayName(p)+' — '+(p.gross==null?'precio pendiente':fmt(p.gross*q))}),'', 'TOTAL ESTIMADO: '+fmt(total()),'Precios orientativos según las facturas disponibles de Cash Dian.'];
  const text=lines.join('\n');
  if(navigator.share){navigator.share({title:'Compra semanal Bola 8',text}).catch(()=>{})}
  else if(navigator.clipboard?.writeText){navigator.clipboard.writeText(text).then(()=>alert('Lista copiada. Ya puedes pegarla en WhatsApp.')).catch(()=>prompt('Copia tu lista:',text))}
@@ -111,7 +151,7 @@ function shareList(){
 }
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
- if(b.dataset.openProduct){const id=b.dataset.openProduct;const p=byId.get(id);if(!p)return;const answer=prompt('¿Qué cantidad necesitas de '+p.name+'?', '1');if(answer===null)return;const q=Number(String(answer).replace(',','.'));if(!Number.isFinite(q)||q<=0||!Number.isInteger(q)){alert('Introduce una cantidad entera mayor que cero.');return}picks[id]=(Number(picks[id])||0)+q;update();return}
+ if(b.dataset.openProduct){const id=b.dataset.openProduct;const p=byId.get(id);if(!p)return;const answer=prompt('¿Qué cantidad necesitas de '+displayName(p)+'?', '1');if(answer===null)return;const q=Number(String(answer).replace(',','.'));if(!Number.isFinite(q)||q<=0||!Number.isInteger(q)){alert('Introduce una cantidad entera mayor que cero.');return}picks[id]=(Number(picks[id])||0)+q;update();return}
  if(b.dataset.cat){category=b.dataset.cat;renderChips();renderProducts();return}
  if(b.dataset.step){const inp=document.querySelector('#qty-'+CSS.escape(b.dataset.id));if(inp)inp.value=Math.max(1,(Number(inp.value)||1)+Number(b.dataset.step));return}
  if(b.dataset.add){const id=b.dataset.add,q=Math.max(1,Math.floor(Number(document.querySelector('#qty-'+CSS.escape(id))?.value)||1));picks[id]=(Number(picks[id])||0)+q;update();b.textContent='✓ Añadido';setTimeout(()=>{if(b.isConnected)b.textContent='Añadir'},900);return}
