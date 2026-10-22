@@ -30,19 +30,6 @@ function basketCount(){return Object.values(picks).reduce((a,n)=>a+Math.max(0,Nu
 function total(){return Object.entries(picks).reduce((a,[id,q])=>a+(byId.get(id)?.gross||0)*Math.max(0,Number(q)||0),0)}
 function displayName(p){
  const n=p.name.toLocaleUpperCase('es');
- const imageRules=[
-  [/COCA.?COLA.*ZERO|COCA COLA ZERO/,'logo-ccz-v-minima_500x500.png'],
-  [/COCA.?COLA/,'logo_cc-original_500x500.png'],
-  [/FANTA.*LIMON/,'logo-fanta-limon-fruta.jpg'],
-  [/FANTA/,'logo-fanta-generico.jpg'],
-  [/FUZE TEA.*MARACUYA/,'fuzetea-maracuya-256x256.png'],
-  [/FUZE TEA.*LIMON/,'fuzetea-limon-256x256.png'],
-  [/AQUARIUS/,'logo-aquarius-naranja.png'],
-  [/R BLISS.*(BERRY|AROMATIC)|ROYAL BLISS.*(BERRY|AROMATIC)/,'royalbliss_aromaticberry.jpg'],
-  [/R BLISS|ROYAL BLISS/,'royalbliss_signaturetonicawater.jpg']
- ];
- const imageRule=imageRules.find(([re])=>re.test(n));
- if(imageRule){const file=imageRule[1];return '<div class="brand-logo"><img src="./data/'+file+'" alt="'+esc(displayName(p))+'" loading="lazy"></div>'}
  const rules=[
  [/^AGUA FUENTE PRIMAVERA S\/G 0,5L$/,'Agua Fuente Primavera 500 ml'],
  [/^AGUA FONT NATURA S\/G 5L$/,'Agua Font Natura 5 litros'],
@@ -94,6 +81,20 @@ function renderProducts(){
 
 function brandLogo(p){
  const n=p.name.toLocaleUpperCase('es');
+ const imageRules=[
+  [/COCA.?COLA.*ZERO|COCA COLA ZERO/,'logo-ccz-v-minima_500x500.png'],
+  [/COCA.?COLA/,'logo_cc-original_500x500.png'],
+  [/FANTA.*LIMON/,'logo-fanta-limon-fruta.jpg'],
+  [/FANTA/,'logo-fanta-generico.jpg'],
+  [/FUZE TEA.*MARACUYA/,'fuzetea-maracuya-256x256.png'],
+  [/FUZE TEA.*LIMON/,'fuzetea-limon-256x256.png'],
+  [/AQUARIUS/,'logo-aquarius-naranja.png'],
+  [/R BLISS.*(BERRY|AROMATIC)|ROYAL BLISS.*(BERRY|AROMATIC)/,'royalbliss_aromaticberry.jpg'],
+  [/R BLISS|ROYAL BLISS/,'royalbliss_signaturetonicawater.jpg']
+ ];
+ const imageRule=imageRules.find(([re])=>re.test(n));
+ if(imageRule){const file=imageRule[1];return '<div class="brand-logo"><img src="./data/'+file+'" alt="'+esc(displayName(p))+'" loading="lazy"></div>'}
+
  let brand='PRODUCTO',color='#263746',ink='#ffffff',font='Arial,sans-serif',size=25,shape='';
  const rules=[
  [/COCA.?COLA.*ZERO|COCA COLA ZERO/,'Coca-Cola Zero','#d71920','#ffffff','Georgia,serif',22],
